@@ -1,0 +1,137 @@
+[
+  {
+    "model_class": "DerivedDataset",
+    "table": "derived_datasets",
+    "fields": [
+      {
+        "field_name": "table_id",
+        "field_class": "CharField",
+        "options": {
+          "primary_key":true,
+          "null": false
+        }
+      },
+      {
+        "field_name": "dataset_name",
+        "field_class": "CharField",
+        "options": {        
+          "null": false
+        }
+      },
+      {
+        "field_name": "entity_type",
+        "field_class": "CharField",
+        "options": {        
+          "null": false
+        }
+      },
+      {
+        "field_name": "childes_db_version",
+        "field_class": "CharField",
+        "options": {        
+          "null": false
+        }
+      },
+      {
+        "field_name": "dataset_version",
+        "field_class": "CharField",
+        "options": {        
+          "null": false
+        }
+      },
+      {
+        "field_name": "coding_table",
+        "field_class": "CharField",
+        "options": {        
+          "null": false
+        }
+      },
+      {
+        "field_name": "coding_table",
+        "field_class": "CharField",
+        "options": {        
+          "null": false
+        }
+      },
+
+      {
+        "field_name": "date_of_release",
+        "field_class": "CharField",
+        "options": {        
+          "null": false
+        }
+      },
+      {
+        "field_name": "contact",
+        "field_class": "CharField",
+        "options": {        
+          "null": false
+        }
+      },
+      {
+        "field_name": "citation",
+        "field_class": "CharField",
+        "options": {        
+          "null": false
+        }
+      },
+      {
+        "field_name": "description",
+        "field_class": "CharField",
+        "options": {        
+          "null": false
+        }
+      }
+    ]
+  },
+  {
+    "model_class": "VariableMapping",
+    "table": "variable_mappings",
+    "fields": [
+      {
+        "field_name": "table_id",
+        "field_class": "ForeignKey",
+        "options": {
+          "to": "DerivedDataset",
+          "null": false
+        }
+      },
+      {
+        "field_name": "variable_id",
+        "field_class": "ForeignKey",
+        "options": {
+          "to": "Variable",
+          "null": false
+        }
+      }   
+    ]
+  },
+  {
+    "model_class": "Variable",
+    "table": "variables",
+    "fields": [
+      {
+        "field_name": "variable_id",
+        "field_class": "IntegerField",
+        "options": {   
+          "primary_key":true,     
+          "null": false
+        }
+      },
+      {
+        "field_name": "data_type",
+        "field_class": "CharField",
+        "options": {             
+          "null": false
+        }
+      },
+      {
+        "field_name": "values",
+        "field_class": "JSONField",
+        "options": {             
+          "null": false
+        }
+      }     
+    ]
+  }
+]
