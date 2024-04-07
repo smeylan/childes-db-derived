@@ -1,0 +1,3 @@
+﻿variable_name,data_type
+utterance_id,"{""field_class"": ""IntegerField"",""options"": {""null"": false,""primary_key"":true,""default"": ""None""}}"
+speech_act,"{""field_class"": ""CharField"",""options"": {""null"": true,""max_length"":255,""default"": ""None"",""choices"":[[""QN"",""Ask a product-question (wh-question""],[""SA"",""Answer a wh-question with a statement""]]}}"

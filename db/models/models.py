@@ -58,4 +58,4 @@ def create_schema_models(schema_file) :
         model = create_model(model_class, db_table, fields)
         globals()[model_class] = model
 
-create_schema_models(settings.SCHEMA_FILE)
+create_schema_models(settings.AUGMENTED_SCHEMA_FILE)
