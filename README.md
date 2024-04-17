@@ -19,6 +19,9 @@ Look at example csv's in `datatasets/`. More details can also be found here: htt
 
 The database is designed to allow datasets to share coding schemes to make it more clear which annotation systems have the same annotation scheme. The database population code checks if the variables used by a datasets (in variables.csv) are the same as those used by a previous dataset; if they are, then it links against those in the relational database. Because the properties of each variable are tracked separately in `variables.csv`, it is posible for a dataset to have a combination of back-compatible and novel tag formats.
 
+# Replicability of External Models / Codebases
+
+As of April 2024, we don't handle re-running the external models / tools used to derive these datasets, and leave that up to external researchers. However, in the future we would like to handle this in some way so that we can re-run contributed models each time we create a new version of childes-db. For now, we ask that researchers use Python 3.9 and note all of their dependencies following the conventions of `pip` or `conda`.
 
 # Update the Dev Database
 
