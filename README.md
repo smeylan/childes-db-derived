@@ -5,22 +5,22 @@ This Django-backed framework makes ML and NLP-backed datasets available through 
 - We use Django to enforce the database schema, build an object-relational model and then populate the database
 - The workflows below involve pushing data to the `childes_db_derived_dev` database, then copying that to named releases that will otherwise remain unchanged. `childes_db_derived_dev` may change at any time and only release versions of the dataset should be expected t be stable
 
-- # Format of Derived Datasets
+# Format of Derived Datasets
 
 This codebase uses table-defined specifications for 
 
-`derived_datasets.csv`: metadata for the dataset, including a specification of a unique table name
-`variables.csv`: names of the variables and their specifications in the ORM (in `data_type`). This gets used to auto-populate the schema  
+`derived_datasets.csv`: metadata for the dataset. A unique table name used to store the data will be automatically generated from the `entity_type`, `dataset_name`, `childes_db_version`, and `dataset_version`. These will be joined by hyphens, and the period in the childes_db_version will be replaced with an underscore.
+`variables.csv`: names of the variables and their specifications in the ORM (in `data_type`). This gets used to auto-populate the schema and to check if there are previous datasets with the same format  
 `data.csv`: the actual data from the annotation / tagging system or the gold-standard dataset. Variable contents must be described in `variables.csv`.
 
 Look at example csv's in `datatasets/`. More details can also be found here: https://docs.google.com/spreadsheets/d/1ohNKEQ3EgK1lq7vQG5QWaYwR1EJad10h-3b1MD8MlsY/edit#gid=0
 
-- # Sharing variables across datasets
+# Sharing variables across datasets
 
 The database is designed to allow datasets to share coding schemes to make it more clear which annotation systems have the same annotation scheme. The database population code checks if the variables used by a datasets (in variables.csv) are the same as those used by a previous dataset; if they are, then it links against those in the relational database. Because the properties of each variable are tracked separately in `variables.csv`, it is posible for a dataset to have a combination of back-compatible and novel tag formats.
 
 
-- # Update the Dev Database
+# Update the Dev Database
 
 If you have not already set up the server, follow the instructions in the following section.
 
