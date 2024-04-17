@@ -2,19 +2,12 @@
   {
     "model_class": "DerivedDataset",
     "table": "derived_datasets",
-    "fields": [
-      {
-        "field_name": "table_id",
-        "field_class": "IntegerField",        
-        "options": {      
-          "primary_key":true,     
-          "null": false
-        }
-      },
+    "fields": [      
       {
         "field_name": "table_name",
         "field_class": "CharField",
-        "options": {      
+        "options": { 
+          "primary_key":true,          
           "null": false,
           "max_length": 255          
         }
@@ -122,7 +115,7 @@
         }
       },
       {
-        "field_name": "table_id",
+        "field_name": "table_name",
         "field_class": "ForeignKey",
         "options": {
           "to": "DerivedDataset",

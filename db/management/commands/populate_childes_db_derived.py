@@ -57,7 +57,12 @@ def CSV_to_Django(validate_only, bulk_args, data_folder, schema, dataset_type, o
         fields_in_csv = df.columns
         fields_required_by_schema = [x['field_name'] for x in class_def['fields']]
 
+        if dataset_type == 'derived_datasets':
+            # the table name value is not in the csv but is constructed from the components 
+            fields_required_by_schema = [x for x in fields_required_by_schema if x != 'table_name']
+    
         missing_fields = set(fields_required_by_schema)  - set(fields_in_csv) 
+        
         if len(missing_fields) > 0:
             raise ValueError('Fields are missing from '+csv_path+': '+'; '.join(missing_fields)) 
         
@@ -114,12 +119,19 @@ def CSV_to_Django(validate_only, bulk_args, data_folder, schema, dataset_type, o
                         payload[field['field_name']] = record_default[field['field_name']]                    
                     
                     else:                    
-                        # if it's in one of the aux's, populate the field with None
-                        raise ValueError('No value found for field '+field['field_name']+". Make sure that this field is populated. Aborting processing this dataset.")
+                        if dataset_type == 'derived_datasets' and field['field_name'] == 'table_name':
+                            pass # special case that the table name is created afterwards
+                        else:
+                            # if it's in one of the aux's, populate the field with None
+                            raise ValueError('No value found for field '+field['field_name']+". Make sure that this field is populated. Aborting processing this dataset.")
+
+            if dataset_type == 'derived_datasets':
+                payload['table_name'] = payload['entity_type'] + '-' + payload['dataset_name'] + '-' + str(payload['childes_db_version']).replace('.','_') + '-' + str(payload['dataset_version'])
 
             # Add the offset to the primary key
             if add_offsets:
-                payload[primary_key] += offsets[primary_key]
+                if primary_key != 'table_name':
+                    payload[primary_key] += offsets[primary_key]
 
             data_model = getattr(db.models, class_names[dataset_type])
             rdict[payload[primary_key]] = data_model(**payload)
@@ -177,8 +189,8 @@ def create_data_tables(all_dirs, schema, validate_only):
         #    completion_report['derived_datasets'] = traceback.format_exc()
         #    completion_report['num_records_derived_datasets'] = 'Cannot evaluate'
         
-        # pull out the record programatically        
-        table_name = metadata[0].table_name 
+        # pull out the record programatically                
+        table_name = [x for x in metadata.keys()][0]
         data = CSV_to_Django(validate_only, bulk_args, data_folder, schema, table_name, offsets, optional=False, csv_name="data")
         
         
@@ -192,7 +204,7 @@ def create_data_tables(all_dirs, schema, validate_only):
             # each variable is a separate record
             if '_id' not in variables[variable].variable_name:         
                 # check if variable name contains id; if not add it here
-                payload = {'mapping_id': mapping_id + offsets['mapping_id'], 'table_id':metadata[0], 'variable_name':variables[variable]}                                
+                payload = {'mapping_id': mapping_id + offsets['mapping_id'], 'table_name':metadata[table_name], 'variable_name':variables[variable]}                                
                 data_model = getattr(db.models, 'VariableMapping')
                 rdict[payload['mapping_id']] = data_model(**payload)                
                 

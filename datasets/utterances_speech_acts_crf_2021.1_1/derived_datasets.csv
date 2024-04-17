@@ -1,2 +1,2 @@
-table_id,table_name,dataset_name,entity_type,childes_db_version,dataset_version,coding_table,tag_type,model_version,date_of_release,contact,citation,description
-0,speech_acts_crf,speech_acts_crf,utterances,2021.1,1,utterances_speech_acts_crf,model,1,4/1/24,mitja.nikolaus@posteo.de,https://doi.org/10.34842/2022.0532,dummy description
+dataset_name,entity_type,childes_db_version,dataset_version,coding_table,tag_type,model_version,date_of_release,contact,citation,description
+speech_acts_crf,utterances,2021.1,1,utterances_speech_acts_crf,model,1,4/1/24,mitja.nikolaus@posteo.de,https://doi.org/10.34842/2022.0532,dummy description

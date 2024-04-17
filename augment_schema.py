@@ -19,6 +19,8 @@ def augment_schema(original_schema, all_dirs):
         for i in range(len(fields)):
             fields[i]['field_name'] = variables_df['variable_name'].tolist()[i]
 
+        metadata_df['table_name'] = metadata_df['entity_type'].map(str) + '-' + metadata_df['dataset_name'].map(str) + '-' + metadata_df['childes_db_version'].astype(str).str.replace('.', '_', regex=False) + '-' + metadata_df['dataset_version'].map(str)
+
         new_dataset_schema = {
             "model_class": metadata_df.iloc[0].table_name+'_record',
             "table": metadata_df.iloc[0].table_name,
