@@ -29,7 +29,7 @@ If you have not already set up the server, follow the instructions in the follow
 
 When you want to update the database, you don't need to install anything new (i.e. MySQL or python libraries) -- all you need to do is get to a shell on the appropriate machine, load the appropriate virtual environment so that the system can see the right python libraries, make sure the datasets you mean to add are in the correct place/format, and then invoke the database populating script. In more detail:
 
-1. `cd childes-db-derived` to enter the peekbank folder
+1. `cd childes-db-derived` to enter the childes-db-derived folder
 
 1. Activate the virtual environment: `source childes-db-derived-py3.9-env/bin/activate`
 
@@ -52,7 +52,7 @@ some hints. Modify according to your environment.
 
 1. Get the `config.json` file with database credentials and place them in the root of this repo. This includes Django settings and passwords and is not part of the repo because it has passwords etc.
 
-1. Set up a virtual environment; by convention `peekbank-env`: `virtualenv childes-db-derived-py3.9-env -p python3.9`
+1. Set up a virtual environment; by convention `childes-db-derived-py3.9-env`: `virtualenv childes-db-derived-py3.9-env -p python3.9`
 
 1. Then activate the venv: `source childes-db-derived-py3.9-env/bin/activate`
 
